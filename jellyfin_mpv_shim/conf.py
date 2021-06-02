@@ -79,7 +79,9 @@ class Settings(SettingsBase):
     seek_up: int = 60
     seek_down: int = -60
     seek_right: int = 5
+    seek_right_stepoverride: bool = False
     seek_left: int = -5
+    seek_left_stepoverride: bool = False
     seek_v_exact: bool = False
     seek_h_exact: bool = False
     shader_pack_enable: bool = True

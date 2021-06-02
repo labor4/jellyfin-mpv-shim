@@ -998,14 +998,22 @@ class PlayerManager(object):
             self.seek(settings.seek_down, exact=settings.seek_v_exact)
         elif action == "left":
             seektime = settings.seek_left
-            if settings.use_web_seek:
-                seektime, _x = self.get_seek_times()
-            self.seek(seektime, exact=settings.seek_h_exact)
+            if settings.seek_left_stepoverride:
+                self._player.command("frame-back-step")
+                self.timeline_handle()
+            else:
+                if settings.use_web_seek:
+                    seektime, _x = self.get_seek_times()
+                self.seek(seektime, exact=settings.seek_h_exact)
         elif action == "right":
             seektime = settings.seek_right
-            if settings.use_web_seek:
-                _x, seektime = self.get_seek_times()
-            self.seek(seektime, exact=settings.seek_h_exact)
+            if settings.seek_right_stepoverride:
+                self._player.command("frame-step")
+                self.timeline_handle()
+            else:
+                if settings.use_web_seek:
+                    _x, seektime = self.get_seek_times()
+                self.seek(seektime, exact=settings.seek_h_exact)
         else:
             self.menu.menu_action(action)
 
